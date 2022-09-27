@@ -55,7 +55,7 @@ const AdminPanel = () => {
     }
 
     useEffect(() => {
-        axios.get(`${url}admin_panel`).then(res => {
+        axios.get(`${url}/admin_panel`).then(res => {
             setUsers(res.data);
         })
     }, []);
