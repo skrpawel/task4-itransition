@@ -11,7 +11,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const url = 'https://task-4-itranistion-backend.herokuapp.com'
+  // const url = 'https://task-4-itranistion-backend.herokuapp.com'
 
 
   const registerUser = (e) => {
