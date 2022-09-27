@@ -6,6 +6,9 @@ import { CgLockUnlock } from 'react-icons/cg';
 import { AiOutlineUserDelete } from 'react-icons/ai';
 
 
+
+
+
 const AdminPanel = () => {
 
     const [users, setUsers] = useState([]);
@@ -34,15 +37,27 @@ const AdminPanel = () => {
         return setUsers(temp);
     }
 
+    const blockUser = (e) => {
+        users.map((user) => {
+            if (user.isChecked) {
+                alert(`Block user ${user.email}`);
 
-
-
+                // try {
+                //     axios.post("http://localhost:5001/admin_panel", user.email, {
+                //     }).then(res => {
+                //         alert('Updated');
+                //     });
+                // } catch (e) {
+                //     console.log('blad');
+                // }
+            }
+        })
+    }
 
     useEffect(() => {
         axios.get('http://localhost:5001/admin_panel').then(res => {
             setUsers(res.data);
         })
-
     }, []);
 
 
@@ -50,7 +65,7 @@ const AdminPanel = () => {
     return (
         <>
             <div className="btn-group btn-group-lg" role="group" aria-label="Send">
-                <button type="button" className="btn btn-danger">Block</button>
+                <button type="button" className="btn btn-danger" onClick={blockUser}>Block</button>
                 <button type="button" className="btn btn-success">{<CgLockUnlock />}</button>
                 <button type="button" className="btn btn-warning">{<AiOutlineUserDelete />}</button>
             </div>
@@ -89,7 +104,7 @@ const AdminPanel = () => {
                                     <th>{user._id}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
-                                    <td></td>
+                                    <td>{user.login_date}</td>
                                     <td>{user.registration_date}</td>
                                     <td>{user.status}</td>
                                 </tr>

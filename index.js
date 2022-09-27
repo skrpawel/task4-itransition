@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const moment = require('moment')
 
 const UserModel = require('./models/user.js')
 const auth = require("./auth");
@@ -21,18 +22,21 @@ mongoose.connect(CONNECTION_URL)
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
 
-
-
-
 app.get('/admin_panel', (req, res) => {
     UserModel.find({}, (err, result) => {
         if (err) return res.json(err);
 
         return res.json(result);
     })
+});
+
+app.post('/admin_panel', async (req, res) => {
+    const user = await UserModel.findOneAndUpdate({
+        email: req.body.user.email
+    }, { status: 'blocked' });
+
+    return res.json();
 })
-
-
 
 app.post('/signup', (req, res) => {
 
@@ -47,6 +51,7 @@ app.post('/signup', (req, res) => {
             email: req.body.email,
             password: req.body.password,
             registration_date: req.body.registration_date,
+            login_date: req.body.login_date,
             status: 'active'
         });
 
@@ -58,19 +63,19 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', async (req, res) => {
 
-    const user = await UserModel.findOne({
+    const user = await UserModel.findOneAndUpdate({
         email: req.body.email,
         password: req.body.password,
-    })
-
-
+        status: 'active',
+    }, { login_date: moment().format('LLL') });
 
     if (user) {
 
         const token = jwt.sign(
             {
                 email: user.email,
-            },
+            }, "RANDOM-TOKEN",
+            { expiresIn: "24h" },
             'secret')
 
         return res.json({ status: 'ok', token: token });
@@ -78,64 +83,6 @@ app.post('/login', async (req, res) => {
 
     return res.json({ status: 'not ok', user: false });
 });
-
-
-
-// // login endpoint
-// app.post("/login", (request, response) => {
-//     // check if email exists
-//     User.findOne({ email: request.body.email })
-
-//         // if email exists
-//         .then((user) => {
-//             // compare the password entered and the hashed password found
-//             bcrypt
-//                 .compare(request.body.password, user.password)
-
-//                 // if the passwords match
-//                 .then((passwordCheck) => {
-
-//                     // check if password matches
-//                     if (!passwordCheck) {
-//                         return response.status(400).send({
-//                             message: "Passwords does not match",
-//                             error,
-//                         });
-//                     }
-
-//                     //   create JWT token
-//                     const token = jwt.sign(
-//                         {
-//                             userId: user._id,
-//                             userEmail: user.email,
-//                         },
-//                         "RANDOM-TOKEN",
-//                         { expiresIn: "24h" }
-//                     );
-
-//                     //   return success response
-//                     response.status(200).send({
-//                         message: "Login Successful",
-//                         email: user.email,
-//                         token,
-//                     });
-//                 })
-//                 // catch error if password does not match
-//                 .catch((error) => {
-//                     response.status(400).send({
-//                         message: "Passwords does not match",
-//                         error,
-//                     });
-//                 });
-//         })
-//         // catch error if email does not exist
-//         .catch((e) => {
-//             response.status(404).send({
-//                 message: "Email not found",
-//                 e,
-//             });
-//         });
-// });
 
 // free endpoint
 app.get("/free-endpoint", (request, response) => {

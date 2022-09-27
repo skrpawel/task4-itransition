@@ -20,6 +20,7 @@ function Register() {
         email,
         password,
         registration_date: moment().format('LLL'),
+        login_date: '',
         status: 'unlocked'
       }).then(res => {
         alert('Created user');

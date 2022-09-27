@@ -12,13 +12,9 @@ import moment from "moment";
 const cookies = new Cookies();
 
 
-
-
 function Login() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-
-
 
     const loginUser = (e) => {
         e.preventDefault();
