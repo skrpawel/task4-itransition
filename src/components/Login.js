@@ -65,28 +65,6 @@ function Login() {
                             Login
                         </Button>{" "}
                     </Form>
-
-                    <Row className="mb-4 mt-2">
-                        <Col md={{ offset: 4 }}>
-                            <Link to="/signup">
-                                <Button>Register page</Button>
-                            </Link>
-                        </Col>
-                    </Row>
-                    <Row className="mb-4 mt-2">
-                        <Col md={{ offset: 4 }}>
-                            <Link to="/login">
-                                <Button>Login</Button>
-                            </Link>
-                        </Col>
-                    </Row>
-                    <Row className="mb-4 mt-2">
-                        <Col md={{ offset: 4 }}>
-                            <Link to="/admin_panel">
-                                <Button>Admin</Button>
-                            </Link>
-                        </Col>
-                    </Row>
                 </div>
             </div>
         </div>

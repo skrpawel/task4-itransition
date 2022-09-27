@@ -9,7 +9,7 @@ const ProtectedRoutes = () => {
     const token = cookies.get("TOKEN");
 
     return (
-        token !== undefined ? <Outlet /> : <Navigate to='/login' />
+        token !== undefined ? <Outlet /> : <Navigate to='/' />
     )
 }
 
