@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from './AdminPanel.module.css'
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { CgLockUnlock } from 'react-icons/cg';
 import { AiOutlineUserDelete } from 'react-icons/ai';
 
@@ -16,7 +16,7 @@ const AdminPanel = () => {
     // const [isCheck, setIsCheck] = useState([]);
     const [list, setList] = useState([]);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         setList(users.email);
@@ -41,6 +41,7 @@ const AdminPanel = () => {
         users.map((user) => {
             if (user.isChecked) {
                 alert(`Block user ${user.email}`);
+                console.log(list);
 
                 // try {
                 //     axios.post("http://localhost:5001/admin_panel", user.email, {
@@ -51,6 +52,8 @@ const AdminPanel = () => {
                 //     console.log('blad');
                 // }
             }
+
+            return user;
         })
     }
 
