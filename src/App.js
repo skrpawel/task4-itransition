@@ -21,7 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<div><Register /><Login /></div>} />
+        <Route path="/" element={<div><h1>Home</h1><Register /><Login /></div>} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/admin_panel" element={<AdminPanel />} />
         </Route>
