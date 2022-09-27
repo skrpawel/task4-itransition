@@ -6,7 +6,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import styles from "../register.module.css";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import moment from "moment";
 
 
 const cookies = new Cookies();
