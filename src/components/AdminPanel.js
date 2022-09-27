@@ -6,7 +6,7 @@ import { CgLockUnlock } from 'react-icons/cg';
 import { AiOutlineUserDelete } from 'react-icons/ai';
 
 
-
+const url = 'https://task-4-itranistion-backend.herokuapp.com'
 
 
 const AdminPanel = () => {
@@ -55,7 +55,7 @@ const AdminPanel = () => {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:5001/admin_panel').then(res => {
+        axios.get(`${url}admin_panel`).then(res => {
             setUsers(res.data);
         })
     }, []);

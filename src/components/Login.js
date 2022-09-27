@@ -18,7 +18,7 @@ function Login() {
 
     const loginUser = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:5001/login", {
+        axios.post(`https://task-4-itranistion-backend.herokuapp.com/login`, {
             email,
             password,
         }).then(res => {
