@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import styles from "../register.module.css";
 import Cookies from "universal-cookie";
