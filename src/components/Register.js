@@ -18,7 +18,7 @@ function Register() {
     e.preventDefault();
     console.log('halko');
     try {
-      axios.post(`${url}signup`, {
+      axios.post(`https://task-4-itranistion-backend.herokuapp.com/signup`, {
         name,
         email,
         password,

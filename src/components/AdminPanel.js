@@ -42,15 +42,6 @@ const AdminPanel = () => {
             if (user.isChecked) {
                 alert(`Block user ${user.email}`);
                 console.log(list);
-
-                // try {
-                //     axios.post("http://localhost:5001/admin_panel", user.email, {
-                //     }).then(res => {
-                //         alert('Updated');
-                //     });
-                // } catch (e) {
-                //     console.log('blad');
-                // }
             }
 
             return user;
