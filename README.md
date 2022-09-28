@@ -4,7 +4,7 @@
 
 ### Website
 
-[Visit project website]:(https://willowy-sprinkles-d91512.netlify.app/)
+[Visit project website] (https://willowy-sprinkles-d91512.netlify.app/)
 
 ### Backend repository
 
