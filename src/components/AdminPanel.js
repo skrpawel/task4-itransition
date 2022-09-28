@@ -97,7 +97,6 @@ const AdminPanel = () => {
                 <button type="button" className="btn btn-danger" onClick={blockUser}>Block</button>
                 <button type="button" className="btn btn-success" onClick={unblockUser}>{<CgLockUnlock />} </button>
                 <button type="button" className="btn btn-warning" onClick={deleteUser} >{<AiOutlineUserDelete />}</button>
-                <button type="button" className="btn btn-warning" onClick={logoutUser} >{<AiOutlineUserDelete />}</button>
             </div>
 
 
