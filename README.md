@@ -1,10 +1,9 @@
 # Task 4 - itransition
 
-## Links
 
-### Website
+### Visit project website
 
-[Visit project website](https://willowy-sprinkles-d91512.netlify.app/)
+[Direct link](https://willowy-sprinkles-d91512.netlify.app/)
 
 ### Backend repository
 
