@@ -1,52 +1,70 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from './AdminPanel.module.css'
 // import { useNavigate } from "react-router-dom";
 import { CgLockUnlock } from 'react-icons/cg';
 import { AiOutlineUserDelete } from 'react-icons/ai';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Cookies from "universal-cookie";
+
 
 
 const url = 'https://task-4-itranistion-backend.herokuapp.com'
+// const url = 'http://localhost:5001'
 
+//TODO
+// Redirect to '/' after current logged user is deleted or blocked 
 
 const AdminPanel = () => {
 
     const [users, setUsers] = useState([]);
-    // const [isCheckAll, setIsCheckAll] = useState(false);
-    // const [isCheck, setIsCheck] = useState([]);
-    const [list, setList] = useState([]);
+    const [isCheckAll, setIsCheckAll] = useState(false);
+    const [isCheck, setIsCheck] = useState([]);
+    // const [isAcitve, setIsActive] = useState(true)
 
-    // const navigate = useNavigate();
-
-    useEffect(() => {
-        setList(users.email);
-    }, [users.email]);
+    const cookies = new Cookies();
 
 
-    const handleChange = (e) => {
-        const { name, checked } = e.target;
-
-        if (name === 'select_all') {
-            let temp = users.map(user => {
-                return { ...user, isChecked: checked };
-            });
-            return setUsers(temp);
+    const handleSelectAll = e => {
+        setIsCheckAll(!isCheckAll);
+        setIsCheck(users.map(li => li._id));
+        if (isCheckAll) {
+            setIsCheck([]);
         }
+    };
 
-        let temp = users.map(user => user.email === name ? { ...user, isChecked: checked } : user);
-        return setUsers(temp);
-    }
+    const handleChange = e => {
+        const { id, checked } = e.target;
+        setIsCheck([...isCheck, id]);
+        if (!checked) {
+            setIsCheck(isCheck.filter(item => item !== id));
+        }
+    };
 
-    const blockUser = (e) => {
-        users.map((user) => {
-            if (user.isChecked) {
-                alert(`Block user ${user.email}`);
-                console.log(list);
-            }
+    const deleteUser = () => {
+        axios.post(`${url}/deleteUser`, {
+            checkedUsers: isCheck,
+        }).then((response) => {
+            alert("User deleted");
+            logoutUser();
+        });
+    };
 
-            return user;
-        })
-    }
+    const blockUser = () => {
+        axios.post(`${url}/blockUser`, {
+            checkedUsers: isCheck,
+        }).then((response) => {
+            alert("User blocked");
+            logoutUser();
+        });
+    };
+
+    const unblockUser = () => {
+        axios.post(`${url}/unblockUser`, {
+            checkedUsers: isCheck,
+        }).then((response) => {
+            alert("User active");
+        });
+    };
 
     useEffect(() => {
         axios.get(`${url}/admin_panel`).then(res => {
@@ -54,18 +72,36 @@ const AdminPanel = () => {
         })
     }, []);
 
+    const logoutUser = () => {
+        const currentUserMail = getCurrentUser();
 
+        users.forEach(function (user, index, array) {
+
+            if (Object.values(isCheck).includes(user._id) && user.email === currentUserMail) {
+                cookies.remove('TOKEN', { path: '/' });
+                localStorage.clear();
+            }
+        });
+
+
+    }
+
+    const getCurrentUser = () => {
+        const mail = localStorage.getItem('_id');
+        return mail;
+    }
 
     return (
-        <>
-            <div className="btn-group btn-group-lg" role="group" aria-label="Send">
+        <div className="d-flex-column">
+            <div className="btn-group btn-group-lg m-5 d-flex" role="group" aria-label="Send">
                 <button type="button" className="btn btn-danger" onClick={blockUser}>Block</button>
-                <button type="button" className="btn btn-success">{<CgLockUnlock />}</button>
-                <button type="button" className="btn btn-warning">{<AiOutlineUserDelete />}</button>
+                <button type="button" className="btn btn-success" onClick={unblockUser}>{<CgLockUnlock />} </button>
+                <button type="button" className="btn btn-warning" onClick={deleteUser} >{<AiOutlineUserDelete />}</button>
+                <button type="button" className="btn btn-warning" onClick={logoutUser} >{<AiOutlineUserDelete />}</button>
             </div>
 
 
-            <div className={styles.container}>
+            <div className="mw-1280px">
                 <table className="table table-dark">
                     <thead>
                         <tr>
@@ -73,7 +109,8 @@ const AdminPanel = () => {
                                 <input
                                     type='checkbox'
                                     name='select_all'
-                                    onClick={handleChange}
+                                    onClick={handleSelectAll}
+                                    isChecked={isCheckAll}
                                 /></th>
                             <th scope="col">ID</th>
                             <th scope="col">name</th>
@@ -91,7 +128,8 @@ const AdminPanel = () => {
                                         <input
                                             type='checkbox'
                                             name={user.email}
-                                            checked={user?.isChecked || false}
+                                            id={user._id}
+                                            checked={isCheck.includes(user._id)}
                                             onChange={handleChange}
                                         />
                                     </th>
@@ -107,7 +145,8 @@ const AdminPanel = () => {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
+
     );
 }
 

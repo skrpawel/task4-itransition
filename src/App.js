@@ -1,4 +1,3 @@
-import { render } from "react-dom";
 import React from 'react';
 
 import {
@@ -7,27 +6,24 @@ import {
   Route
 } from "react-router-dom";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Register from "./components/Register";
-import Login from './components/Login';
+// import Register from "./components/Register";
+// import Login from './components/Login';
+import Main from "./components/Main";
 import AdminPanel from "./components/AdminPanel";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 
 
 const App = () => {
 
-  render(
+  return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signup" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<div><h1>Home</h1><Register /><Login /></div>} />
+        <Route path="/" element={<Main />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/admin_panel" element={<AdminPanel />} />
         </Route>
       </Routes>
-    </BrowserRouter>,
-    document.getElementById("root")
+    </BrowserRouter>
   );
 };
 

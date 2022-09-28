@@ -11,14 +11,15 @@ function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  // const url = 'https://task-4-itranistion-backend.herokuapp.com'
+  // const url = 'http://localhost:5001'
+  const url = 'https://task-4-itranistion-backend.herokuapp.com'
 
 
   const registerUser = (e) => {
     e.preventDefault();
     console.log('halko');
     try {
-      axios.post(`https://task-4-itranistion-backend.herokuapp.com/signup`, {
+      axios.post(`${url}/signup`, {
         name,
         email,
         password,

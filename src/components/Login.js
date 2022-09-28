@@ -6,9 +6,10 @@ import styles from "../register.module.css";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-
 const cookies = new Cookies();
 
+// const url = 'http://localhost:5001'
+const url = 'https://task-4-itranistion-backend.herokuapp.com'
 
 function Login() {
     const [password, setPassword] = useState("");
@@ -16,7 +17,7 @@ function Login() {
 
     const loginUser = (e) => {
         e.preventDefault();
-        axios.post(`https://task-4-itranistion-backend.herokuapp.com/login`, {
+        axios.post(`${url}/login`, {
             email,
             password,
         }).then(res => {
@@ -24,9 +25,10 @@ function Login() {
                 cookies.set("TOKEN", res.data.token, {
                     path: "/",
                 });
+                console.log(res.data)
+                localStorage.setItem('_id', email)
                 alert('Success');
                 window.location = "/admin_panel";
-
             } else {
                 alert('Check password and email');
             };
@@ -34,37 +36,36 @@ function Login() {
     };
 
 
+
     return (
-        <div className="App">
-            <div className={styles.formContainer}>
-                <div className={styles.formWrapper}>
-                    <Form className={styles.form} onSubmit={loginUser}>
-                        <h1>Login</h1>
-                        <InputGroup className="mb-3">
-                            <Form.Control
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                type="email"
-                                placeholder="Your email"
-                                aria-label="Your email"
-                                aria-describedby="basic-addon2"
-                            />
-                        </InputGroup>
-                        <InputGroup className="mb-3">
-                            <Form.Control
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                type="password"
-                                placeholder="Your password"
-                                aria-label="Your password"
-                                aria-describedby="basic-addon2"
-                            />
-                        </InputGroup>
-                        <Button type="submit" variant="primary" size="lg" active>
-                            Login
-                        </Button>{" "}
-                    </Form>
-                </div>
+        <div className={styles.formContainer}>
+            <div className={styles.formWrapper}>
+                <Form className={styles.form} onSubmit={loginUser}>
+                    <h1>Login</h1>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            placeholder="Your email"
+                            aria-label="Your email"
+                            aria-describedby="basic-addon2"
+                        />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            placeholder="Your password"
+                            aria-label="Your password"
+                            aria-describedby="basic-addon2"
+                        />
+                    </InputGroup>
+                    <Button type="submit" variant="primary" size="lg" active >
+                        Login
+                    </Button>{" "}
+                </Form>
             </div>
         </div>
     );

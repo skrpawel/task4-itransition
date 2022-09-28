@@ -3,6 +3,13 @@ body {
 }
 
 #root {
-  height: 100%;
+  height: 100vh;
   background: url("../assets/logo.jpeg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  align-self: center;
 }
