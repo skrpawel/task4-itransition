@@ -4,9 +4,7 @@
 
 ### Website
 
-[Visit project website] (https://willowy-sprinkles-d91512.netlify.app/)
-[Lets go to Quora](https://www.quora.com)
-
+[Visit project website](https://willowy-sprinkles-d91512.netlify.app/)
 
 ### Backend repository
 
