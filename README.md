@@ -1,15 +1,33 @@
 # Task 4 - itransition
 
+## Table of contents
+* [Visit project website](#visit-project-website)
+* [Backend repository](#backend-repository)
+* [Technology stack](#technology-stack)
+* [Requirements for project](#requirements-for-project)
 
-### Visit project website
+## Visit project website
 
 [Direct link](https://willowy-sprinkles-d91512.netlify.app/)
 
-### Backend repository
+## Backend repository
 
 Hosted on heroku until it is free
 
-## Requirements
+## Technology stack
+
+### Frontend:
+
+* React
+* Bootstrap
+
+### Backend: 
+
+* Node.js
+* Express
+* MongoDB
+
+## Requirements for project
 
 - Create a Web application with registration and authentication.
 - Non-authenticated users should not have access to the user management (admin panel).
